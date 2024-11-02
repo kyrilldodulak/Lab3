@@ -61,3 +61,38 @@ class AgedBrieItem implements UpdatableItem {
         return item.getSellIn() < 0;
     }
 }
+
+class BackstagePassItem implements UpdatableItem {
+    private final Item item;
+
+    public BackstagePassItem(Item item) {
+        this.item = item;
+    }
+
+    @Override
+    public void update() {
+        increaseQuality();
+        if (item.getSellIn() < 11) increaseQuality();
+        if (item.getSellIn() < 6) increaseQuality();
+        decreaseSellIn();
+        if (isExpired()) dropQualityToZero();
+    }
+
+    private void increaseQuality() {
+        if (item.getQuality() < 50) {
+            item.setQuality(item.getQuality() + 1);
+        }
+    }
+
+    private void decreaseSellIn() {
+        item.setSellIn(item.getSellIn() - 1);
+    }
+
+    private boolean isExpired() {
+        return item.getSellIn() < 0;
+    }
+
+    private void dropQualityToZero() {
+        item.setQuality(0);
+    }
+}
