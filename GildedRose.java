@@ -32,3 +32,32 @@ class RegularItem implements UpdatableItem {
         return item.getSellIn() < 0;
     }
 }
+
+class AgedBrieItem implements UpdatableItem {
+    private final Item item;
+
+    public AgedBrieItem(Item item) {
+        this.item = item;
+    }
+
+    @Override
+    public void update() {
+        increaseQuality();
+        decreaseSellIn();
+        if (isExpired()) increaseQuality();
+    }
+
+    private void increaseQuality() {
+        if (item.getQuality() < 50) {
+            item.setQuality(item.getQuality() + 1);
+        }
+    }
+
+    private void decreaseSellIn() {
+        item.setSellIn(item.getSellIn() - 1);
+    }
+
+    private boolean isExpired() {
+        return item.getSellIn() < 0;
+    }
+}
