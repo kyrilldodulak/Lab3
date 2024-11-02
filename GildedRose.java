@@ -14,21 +14,14 @@ class GildedRose {
     }
 
     private UpdatableItem createUpdatableItem(Item item) {
-        switch (item.getName()) {
-            case "Aged Brie":
-                return new AgedBrieItem(item);
-            case "Backstage passes to a TAFKAL80ETC concert":
-                return new BackstagePassItem(item);
-            case "Sulfuras, Hand of Ragnaros":
-                return new SulfurasItem(item);
-            default:
-                return new RegularItem(item);
-        }
+        String itemName = item.getName();
+        if ("Aged Brie".equals(itemName)) return new AgedBrieItem(item);
+        if ("Backstage passes to a TAFKAL80ETC concert".equals(itemName)) return new BackstagePassItem(item);
+        if ("Sulfuras, Hand of Ragnaros".equals(itemName)) return new SulfurasItem(item);
+        return new RegularItem(item);
     }
 
     public void updateQuality() {
-        for (UpdatableItem item : items) {
-            item.update();
-        }
+        items.forEach(UpdatableItem::update);
     }
 }
