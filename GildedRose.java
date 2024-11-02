@@ -96,3 +96,10 @@ class BackstagePassItem implements UpdatableItem {
         item.setQuality(0);
     }
 }
+
+class SulfurasItem implements UpdatableItem {
+    @Override
+    public void update() {
+        // "Sulfuras" quality does not change
+    }
+}
